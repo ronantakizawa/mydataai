@@ -15,7 +15,7 @@ const TopicsVisualizer = () => {
   const [index, setIndex] = useState<EmbeddingIndex | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const forceGraphRef = useRef<ForceGraphMethods | null>(null);  // Ref for the ForceGraph2D component
+  const forceGraphRef = useRef<ForceGraphMethods<{ id: string }, { source: string; target: string }> | null>(null); // Ref for the ForceGraph2D component
 
   // Initialize the embedding model and index when the component mounts
   useEffect(() => {
@@ -34,9 +34,9 @@ const TopicsVisualizer = () => {
   // Apply d3 force settings after the graph renders
   useEffect(() => {
     if (forceGraphRef.current && graphData) {
-      forceGraphRef.current.d3Force('link').distance(250); // Set link distance
-      forceGraphRef.current.d3Force('charge').strength(-700); // Set charge strength
-      forceGraphRef.current.d3Force('collide').radius(30); // Apply collision force
+      forceGraphRef.current.d3Force('link')?.distance(250); // Set link distance
+      forceGraphRef.current.d3Force('charge')?.strength(-700); // Set charge strength
+      forceGraphRef.current.d3Force('collide')?.radius(30); // Apply collision force
     }
   }, [graphData]);
 
@@ -163,32 +163,31 @@ const TopicsVisualizer = () => {
         {!isLoading && graphData && (
           <div className="mt-8 overflow-scroll" style={{ width: '100%', height: '700px' }}>
             <ForceGraph2D
-              ref={forceGraphRef} // Use the ref here
-              graphData={graphData}
-              linkColor={() => '#6c757d'}
-              nodeAutoColorBy="id"
-              width={900}
-              height={700}
-              d3VelocityDecay={0.9} // Adjusts the velocity decay for forces
-              nodeCanvasObject={(node, ctx, globalScale) => {
-                const label = node.id;
-                const fontSize = Math.max(6 / globalScale, 6);
-                const radius = Math.max(5 + Math.log(node.val || 1), 5);
+            graphData={graphData}
+            linkColor={() => '#6c757d'}
+            nodeAutoColorBy="id"
+            width={900}
+            height={700}
+            d3VelocityDecay={0.9}
+            nodeCanvasObject={(node, ctx, globalScale) => {
+              const label = node.id;
+              const fontSize = Math.max(6 / globalScale, 6);
+              const radius = Math.max(5 + Math.log(node.val || 1), 5);
 
-                ctx.font = `${fontSize}px Sans-Serif`;
-                ctx.fillStyle = '#6c757d';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
+              ctx.font = `${fontSize}px Sans-Serif`;
+              ctx.fillStyle = '#6c757d';
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
 
-                const textOffsetY = radius + fontSize + 50;
-                ctx.fillText(label as string, node.x!, node.y! - textOffsetY);
+              const textOffsetY = radius + fontSize + 50;
+              ctx.fillText(label as string, node.x!, node.y! - textOffsetY);
 
-                ctx.beginPath();
-                ctx.arc(node.x!, node.y!, radius, 0, 2 * Math.PI, false);
-                ctx.fillStyle = `rgba(108, 117, 125, ${0.7 + Math.random() * 0.3})`;
-                ctx.fill();
-              }}
-            />
+              ctx.beginPath();
+              ctx.arc(node.x!, node.y!, radius, 0, 2 * Math.PI, false);
+              ctx.fillStyle = `rgba(108, 117, 125, ${0.7 + Math.random() * 0.3})`;
+              ctx.fill();
+            }}
+          />
           </div>
         )}
       </div>
