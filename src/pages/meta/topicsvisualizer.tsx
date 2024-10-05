@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { ClipLoader } from 'react-spinners';
 import { getEmbedding, EmbeddingIndex } from 'client-vector-search';
@@ -14,22 +14,30 @@ const TopicsVisualizer = () => {
   const [index, setIndex] = useState<EmbeddingIndex | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const forceGraphRef = useRef<any>(null); // Ref for the ForceGraph2D component
 
   // Initialize the embedding model and index when the component mounts
   useEffect(() => {
     const initializeEmbeddingIndex = async () => {
       try {
-        console.log('Initializing embedding index...');
         const initialObjects: { id: number, name: string, embedding: number[] }[] = [];
         const newIndex = new EmbeddingIndex(initialObjects); // Empty index initially
         setIndex(newIndex);
-        console.log('Embedding index initialized.');
       } catch (error) {
         console.error('Error initializing embedding index:', error);
       }
     };
     initializeEmbeddingIndex();
   }, []);
+
+  // Apply d3 force settings after the graph renders
+  useEffect(() => {
+    if (forceGraphRef.current && graphData) {
+      forceGraphRef.current.d3Force('link').distance(250); // Set link distance
+      forceGraphRef.current.d3Force('charge').strength(-700); // Set charge strength
+      forceGraphRef.current.d3Force('collide').radius(30); // Apply collision force
+    }
+  }, [graphData]);
 
   // Helper function to validate the structure of the uploaded JSON file
   const validateJsonData = (data: TopicData): boolean => {
@@ -56,11 +64,8 @@ const TopicsVisualizer = () => {
       name: item.string_map_data.Name.value,
     }));
 
-    console.log('Generating nodes and embeddings...');
-
     for (const topic of topics) {
       try {
-        console.log(`Generating embedding for: ${topic.name}`);
         const embedding = await getEmbedding(topic.name);
         index.add({ id: topic.id, name: topic.name, embedding });
         nodes.push({ id: topic.name });
@@ -69,7 +74,6 @@ const TopicsVisualizer = () => {
       }
     }
 
-    console.log('Generating links between similar topics...');
     for (const topic of topics) {
       try {
         const queryEmbedding = await getEmbedding(topic.name);
@@ -98,8 +102,6 @@ const TopicsVisualizer = () => {
       reader.onload = function (e) {
         try {
           const jsonData: TopicData = JSON.parse(e.target?.result as string);
-          console.log('File uploaded successfully:', jsonData);
-
           if (validateJsonData(jsonData)) {
             generateGraphData(jsonData);
           } else {
@@ -160,16 +162,13 @@ const TopicsVisualizer = () => {
         {!isLoading && graphData && (
           <div className="mt-8 overflow-scroll" style={{ width: '100%', height: '700px' }}>
             <ForceGraph2D
+              ref={forceGraphRef} // Use the ref here
               graphData={graphData}
               linkColor={() => '#6c757d'}
               nodeAutoColorBy="id"
               width={900}
               height={700}
-              d3VelocityDecay={0.9}  // Adjusts the velocity decay for forces
-              d3Force="link" // This will apply link force only once
-              linkDistance={250} // Set link distance
-              chargeStrength={-700} // Set charge strength
-              collisionRadius={30}  // Apply collision force
+              d3VelocityDecay={0.9} // Adjusts the velocity decay for forces
               nodeCanvasObject={(node, ctx, globalScale) => {
                 const label = node.id;
                 const fontSize = Math.max(6 / globalScale, 6);

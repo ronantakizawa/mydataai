@@ -74,7 +74,7 @@ const SearchHistoryVisualizer = () => {
   // Customization options for the word cloud
   const options = {
     rotations: 0,
-    fontSizes: [30, 80],
+    fontSizes: [30, 80] as [number, number], // Ensure this is a tuple of exactly two numbers
     fontFamily: 'Sans-Serif',
     fontWeight: 'bold',
     colors: ['#007bff', '#6c757d', '#ff6347', '#32cd32', '#ff69b4'],
