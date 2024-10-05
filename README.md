@@ -1,40 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Nosco AI is a personal data visualization web application that allows users to explore and understand their personal data from services like Google and Meta. The app provides interactive and engaging visualizations, helping users gain insights into their contacts, search history, and other data stored by these platforms. 
 
-## Getting Started
 
-First, run the development server:
+*How to Use*
+Prerequisites
+To use Nosco AI, you must have access to your Google and Meta data in JSON format. Follow the instructions below to obtain your data.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Google Data
+Download your Google contacts data from Google Takeout.
+https://takeout.google.com/
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Meta Data
+Download your Meta topics and search history data from Meta Privacy.
+https://www.meta.com/help/quest/articles/accounts/privacy-information-and-settings/view-your-information-and-download-your-information
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+*Steps*
+Go to the Nosco AI homepage.
+Select one of the visualizers (Contacts, Topics, or Search History).
+Upload the corresponding JSON file that you've downloaded from Google or Meta.
+The app will process your data and generate an interactive visualization.
+Explore your data through 3D graphs, word clouds, and other visual formats.
+Data Privacy
+Your data is processed locally on your device through the browser and is not stored or transmitted to external servers.
