@@ -1,3 +1,4 @@
+<img width="438" alt="Screenshot 2024-10-05 at 5 14 42 PM" src="https://github.com/user-attachments/assets/0891de7a-9545-4fb5-b1fa-96f41c298d55">
 Nosco AI is a personal data visualization web application that allows users to explore and understand their personal data from services like Google and Meta. The app provides interactive and engaging visualizations, helping users gain insights into their contacts, search history, and other data stored by these platforms. 
 
 
