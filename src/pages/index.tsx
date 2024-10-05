@@ -2,23 +2,13 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { useState, useEffect } from 'react';
 
-// Dynamically import the updated 3D data visualization component with loading spinner
+
 const DataVisualization3D = dynamic(() => import('../pages/components/DataVisualization3D'), {
-  ssr: false,
-  loading: () => null,
+  ssr: false
 });
 
 const Home: NextPage = () => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 px-4 sm:px-6 lg:px-8 relative">

@@ -15,7 +15,7 @@ const ContactsVisualizer = () => {
   const parseVCF = (vcfData: string) => {
     const vCards = vcfData.split('BEGIN:VCARD').slice(1); // Split by "BEGIN:VCARD"
 
-    const parsedContacts = vCards.map((vCard, index) => {
+    const parsedContacts = vCards.map((vCard) => {
       const contact: Contact = {};
       const lines = vCard.split(/\r?\n/); // Handle different line endings
 
@@ -86,7 +86,7 @@ const ContactsVisualizer = () => {
           <div className="flex flex-col items-center mb-8">
             <Image src="/google_logo.png" alt="Google Logo" width={120} height={120} />
             <Link href="https://takeout.google.com" target="_blank" rel="noopener noreferrer">
-              <p className="text-sm text-gray-600 hover:underline mt-2">Don't have your Google data?</p>
+              <p className="text-sm text-gray-600 hover:underline mt-2">{`Don't have your Google data?`}</p>
             </Link>
           </div>
 
