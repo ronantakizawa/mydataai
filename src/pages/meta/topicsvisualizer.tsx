@@ -5,6 +5,7 @@ import { getEmbedding, EmbeddingIndex } from 'client-vector-search';
 import Image from 'next/image';
 import Link from 'next/link';
 import { TopicData, Topic, GraphData } from '../../types/types'; // Adjust path as necessary
+import { ForceGraphMethods } from 'react-force-graph-2d';
 
 // Dynamically load the graph component
 const ForceGraph2D = dynamic(() => import('react-force-graph').then(mod => mod.ForceGraph2D), { ssr: false });
@@ -14,7 +15,7 @@ const TopicsVisualizer = () => {
   const [index, setIndex] = useState<EmbeddingIndex | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const forceGraphRef = useRef<any>(null); // Ref for the ForceGraph2D component
+  const forceGraphRef = useRef<ForceGraphMethods | null>(null);  // Ref for the ForceGraph2D component
 
   // Initialize the embedding model and index when the component mounts
   useEffect(() => {
