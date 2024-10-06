@@ -27,8 +27,8 @@ const Home: NextPage = () => {
             {/* Title and Subtitle Overlay with Background */}
             <div className="absolute top-0 inset-0 flex flex-col items-center justify-center bg-gray-50 bg-opacity-80 p-2"> {/* Reduced padding */}
               <div className="flex items-center justify-center mb-2"> {/* Reduced margin-bottom */}
-                <h1 className="text-6xl font-extrabold text-center text-gray-800">Nosco AI</h1> {/* Increased font size */}
-                <Image src="/noscoailogo.png" alt="Nosco AI Logo" width={80} height={80} className="ml-2" /> {/* Larger logo */}
+                <h1 className="text-6xl font-extrabold text-center text-gray-800">MyDataAI</h1> {/* Increased font size */}
+                <Image src="/mydataailogo.png" alt="MyDataAI Logo" width={80} height={80} className="ml-2" /> {/* Larger logo */}
               </div>
               <h5 className="text-xl text-center text-gray-800">Visualize Your Personal Data</h5>
             </div>
