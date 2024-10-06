@@ -1,4 +1,4 @@
-<img width="438" alt="Screenshot 2024-10-05 at 5 14 42 PM" src="https://github.com/user-attachments/assets/0891de7a-9545-4fb5-b1fa-96f41c298d55">
+<img width="417" alt="Screenshot 2024-10-05 at 11 47 50 PM" src="https://github.com/user-attachments/assets/a0f09b3b-5df6-45ae-827b-2355c56a40f5">
 
 https://noscoai.vercel.app/
 
